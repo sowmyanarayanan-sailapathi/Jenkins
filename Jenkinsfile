@@ -9,8 +9,10 @@ pipeline {
 
     stage('Smoke Test') {
       steps {
-        echo 'Run the Smoke Test Pack'
+        git(url: 'https://github.com/sowmyanarayanan-sailapathi/EyeAutomation', branch: 'master', poll: true)
+        bat 'mvn test -DEnvironment=QA'
         echo 'Move code to QA on Smoke Test completion'
+        echo 'Run the Smoke Test Pack'
       }
     }
 
@@ -45,6 +47,7 @@ pipeline {
 
     stage('Certify the Build') {
       steps {
+        input(message: 'Certify the Build?', ok: 'Yes')
         echo 'Trigger Email when Build is successful'
       }
     }
