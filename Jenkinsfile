@@ -8,6 +8,9 @@ pipeline {
     }
 
     stage('Smoke Test') {
+      when {
+        branch 'master'
+      }
       steps {
         git(url: 'https://github.com/sowmyanarayanan-sailapathi/EyeAutomation', branch: 'master', poll: true)
         bat 'mvn test -DEnvironment=QA'
